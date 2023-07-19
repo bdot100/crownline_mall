@@ -1,0 +1,268 @@
+{% extends "home/layout.html" %}
+{% include "home/header.html" %}
+{% block content %}
+        <!-- home page slider -->
+        <div class="homepage-slider">
+            <!-- single home slider -->
+            <div class="single-homepage-slider homepage-bg-1">
+                    <div class="container">
+                            <div class="row">
+                                    <div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
+                                            <div class="hero-text">
+                                                    <div class="hero-text-tablecell">
+                                                            <p class="subtitle">Affordability & Quality</p>
+                                                            <h1>Welcome To Crownline Mall</h1>
+                                                            <div class="hero-btns">
+                                                                    <a href="{{url_for('all_products')}}" class="boxed-btn">Shop Now</a>
+                                                                    {% if current_user.is_authenticated %}
+                                                                    {% else %}
+                                                                    <a href="{{url_for('customerLogin')}}" class="bordered-btn">Login/Register</a>
+                                                                    {% endif %}
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+            <!-- single home slider -->
+            <div class="single-homepage-slider homepage-bg-2">
+                    <div class="container">
+                            <div class="row">
+                                    <div class="col-lg-10 offset-lg-1 text-center">
+                                            <div class="hero-text">
+                                                    <div class="hero-text-tablecell">
+                                                            <p class="subtitle">Nationwide Delivery</p>
+                                                            <h1>100% Delivery Nationwide</h1>
+                                                            <div class="hero-btns">
+                                                                <a href="{{url_for('all_products')}}" class="boxed-btn">Shop Now</a>
+                                                                {% if current_user.is_authenticated %}
+                                                                {% else %}
+                                                                <a href="{{url_for('customerLogin')}}" class="bordered-btn">Login/Register</a>
+                                                                {% endif %}
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+            <!-- single home slider -->
+            <div class="single-homepage-slider homepage-bg-3">
+                    <div class="container">
+                            <div class="row">
+                                    <div class="col-lg-10 offset-lg-1 text-right">
+                                            <div class="hero-text">
+                                                    <div class="hero-text-tablecell">
+                                                            <p class="subtitle">Mega Sale Going On!</p>
+                                                            <h1>Uncompromised Quality Products</h1>
+                                                            <div class="hero-btns">
+                                                                <a href="{{url_for('all_products')}}" class="boxed-btn">Shop Now</a>
+                                                                {% if current_user.is_authenticated %}
+                                                                {% else %}
+                                                                <a href="{{url_for('customerLogin')}}" class="bordered-btn">Login/Register</a>
+                                                                {% endif %}
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+    </div>
+    <!-- end home page slider -->
+
+    <!-- features list section -->
+    <div class="list-section pt-80 pb-80">
+            <div class="container">
+
+                    <div class="row">
+                            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                    <div class="list-box d-flex align-items-center">
+                                            <div class="list-icon">
+                                                    <i class="fas fa-shipping-fast"></i>
+                                            </div>
+                                            <div class="content">
+                                                    <h3>Free Shipping</h3>
+                                                    <p>When order over $75</p>
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                    <div class="list-box d-flex align-items-center">
+                                            <div class="list-icon">
+                                                    <i class="fas fa-phone-volume"></i>
+                                            </div>
+                                            <div class="content">
+                                                    <h3>24/7 Support</h3>
+                                                    <p>Get support all day</p>
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                    <div class="list-box d-flex justify-content-start align-items-center">
+                                            <div class="list-icon">
+                                                    <i class="fas fa-sync"></i>
+                                            </div>
+                                            <div class="content">
+                                                    <h3>Refund</h3>
+                                                    <p>Get refund within 3 days!</p>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+
+            </div>
+    </div>
+    <!-- end features list section -->
+
+    <!-- product section -->
+    <div class="product-section mt-150 mb-150">
+            <div class="container">
+                    <div class="row">
+                            <div class="col-lg-8 offset-lg-2 text-center">
+                                    <div class="section-title">     
+                                            <h3><span class="orange-text">Our</span> Products</h3>
+                                            <p>We offer a diverse range of products, including fashionable items, electronics, mobile devices, and laptops. Our products are known for their high quality and affordability. Take advantage of our free shipping offer when your order total exceeds $100.</p>
+                                    </div>
+                            </div>
+                    </div>
+
+                    <div class="row">
+                        {% for product in products.items %}
+                        <div class="col-lg-4 col-md-6 text-center">
+                        <div class="single-product-item">
+                        <div class="product-image">
+                                <a href="{{ url_for('single_page', id=product.id) }}">
+                                        <img src="{{url_for('static', filename='images/' + product.image_1)}}" alt="{{product.name}}" height="250" width="250">
+                                </a>
+                        </div>
+                        <h3>{{product.name}}</h3>
+                        <p class="product-price"><span>Price</span> ${{product.price}} </p>
+                        <form action="{{url_for('AddCart')}}" method="POST">
+                                <input type="hidden" name="product_id" value="{{product.id}}">
+                                <input type="hidden" name="quantity" value="1" min="1" max="{{product.stock}}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                {% set colors = product.colors.split(',') %}
+                                {% for color in colors %}
+                                {% set col = color.split(':') %}
+                                <input type="hidden" name="colors" value="{{col[0]}}">
+                                {% endfor %}
+                                <input type="submit" value="Add to Cart">
+                                {# <button type="submit" class=""><a href="{{url_for('AddCart')}}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a></button> #}
+                        </form>
+                        </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <div class="pagination-wrap">
+                            <ul>
+                                {% if products.has_prev %}
+                                <li><a href="{{url_for('home', page=products.prev_num)}}">Prev</a></li>
+                                {% endif %}
+                                {% if products.total > 4 %}
+                                {% for page_num  in products.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+                                {% if page_num %}
+                                {% if products.page == page_num %}
+                                <li><a href="{{url_for('home', page=page_num)}}">{{page_num}}</a></li>
+                                {% else %}
+                                <li><a href="{{url_for('home', page=page_num)}}" class="btn btn-outline-info btn-sm mt-3">{{page_num}}</a></li>
+                                {% endif %}
+                                {% else %}
+                                ...
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                                {% if products.has_next %}
+                                <li><a href="{{url_for('home', page=products.next_num)}}">Next</a></li>
+                                {% endif %}
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    <!-- end product section -->
+
+    <!-- cart banner section -->
+    <section class="cart-banner pt-100 pb-100">
+    <div class="container">
+            <div class="row clearfix">
+            <!--Image Column-->
+            <div class="image-column col-lg-6">
+                    <div class="image">
+                    <div class="price-box">
+                            <div class="inner-price">
+                            <span class="price">
+                                <strong>30%</strong> <br> off
+                            </span>
+                        </div>
+                    </div>
+                    <img src="{{url_for('static', filename='home_assets/img/products/mobile3.jpg')}}" alt="">
+                </div>
+            </div>
+            <!--Content Column-->
+            <div class="content-column col-lg-6">
+                                    <h3><span class="orange-text">Deal</span> of the month</h3>
+                <h4>Iphone12</h4>
+                <div class="text">Introducing our exciting <b>Deal of the Month</b> 
+                                            promotion! Each month, we bring you an exclusive offer on 
+                                            one of our top products. It's your chance to grab incredible 
+                                            savings and take advantage of special discounts. Keep an eye 
+                                            out for our monthly deals and make sure you don't miss out 
+                                            on these limited-time offers. Upgrade your shopping experience
+                                             with our Deal of the Month and enjoy remarkable savings on
+                                              high-quality products.</div>
+                <!--Countdown Timer-->
+                <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
+                    <a href="#" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end cart banner section -->
+    
+    <!-- advertisement section -->
+    <div class="abt-section mt-150 mb-150">
+            <div class="container">
+                    <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                    <div class="abt-bg">
+                                            <a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+                                    </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                    <div class="abt-text">
+                                            <p class="top-sub">Since Year 1999</p>
+                                            <h2>We are <span class="orange-text">Crownline Mall</span></h2>
+                                            <p>Welcome to our Crownline Mall, where you'll discover an
+                                                     extensive collection of products designed to meet your diverse needs.
+                                                      From trendy fashion items to cutting-edge electronics, mobile devices, 
+                                                      and laptops, we have it all. Our commitment to excellence ensures that our
+                                                       products consistently deliver high quality and reliability. We believe that 
+                                                       affordability shouldn't compromise quality, which is why we strive to offer
+                                                        competitive prices without compromising on value. With our broad range of
+                                                             products and a focus on quality and affordability, we aim to provide you
+                                                              with a seamless shopping experience. Explore our selection and indulge
+                                                               in the perfect blend of style, functionality, and affordability. Shop with
+                                                                confidence and find the perfect products to enhance your lifestyle.</p>
+                                            <a href="#" class="boxed-btn mt-4">know more</a>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+    </div>
+    <!-- end advertisement section -->
+    
+    <!-- shop banner -->
+    <section class="shop-banner">
+    <div class="container">
+            <h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
+        <div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
+        <a href="#" class="cart-btn btn-lg">Shop Now</a>
+    </div>
+</section>
+    <!-- end shop banner -->
+{% endblock content %}

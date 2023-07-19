@@ -1,0 +1,60 @@
+{% extends "home/layout.html" %}
+{% include "home/header.html" %}
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Be a part of us</p>
+						<h1>Register</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+    {% include "_messages.html" %}
+    <!-- contact form -->
+	<div class="contact-from-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mb-5 mb-lg-0">
+					<div class="form-title">
+						<h2>Register and be a part of the Crowline Community</h2>
+						<p></p>
+					</div>
+				 	<div id="form_status"></div>
+					<div class="contact-form">
+						<form action="" method="POST">
+                            {{ form.csrf_token }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ render_field(form.name, class="form-control") }}
+                                    {{ render_field(form.username, class="form-control") }}
+                                    {{ render_field(form.email, class="form-control") }}
+                                    {{ render_field(form.password, class="form-control") }}
+                                    {{ render_field(form.confirm, class="form-control") }}
+                                    {{ form.profile }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ render_field(form.country, class="form-control") }}
+                                    {{ render_field(form.state, class="form-control") }}
+                                    {{ render_field(form.city, class="form-control") }}
+                                    {{ render_field(form.contact, class="form-control") }}
+                                    {{ render_field(form.address, class="form-control") }}
+                                    {{ render_field(form.zipcode, class="form-control") }}
+                                </div>
+                                <div class="col-md-2"></div>
+                                {{ form.submit(class="btn btn-sm btn-info btn-block mt-4") }}
+                            </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end contact form -->
+{% endblock %}

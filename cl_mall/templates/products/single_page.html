@@ -1,0 +1,90 @@
+{% extends "home/layout.html" %}
+{% include "home/header.html" %}
+{% block content %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>See more Details</p>
+						<h1>{{product.name}}</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- single product -->
+	<div class="single-product mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5" id="b_image">
+					<div class="single-product-img">
+						<img src="{{url_for('static', filename='images/' + product.image_1)}}" alt="{{product.name}}" width="400" height="400">
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div class="single-product-content">
+						<h3>{{product.name}}</h3>
+                        <hr>
+						<p class="single-product-pricing"><span>Price</span> ${{product.price}}</p>
+                        <hr>
+                        {% if product.discount > 0 %}
+                        <p>Product discount: {{product.discount}} %</p>
+                        {% endif %}
+                        <hr>
+						<p>{{product.description}}</p>
+						<div class="single-product-form">
+							<form action="{{url_for('AddCart')}}" method="post">
+                                <input type="hidden" name="product_id" value="{{product.id}}">
+								<input type="number" name="quantity" value="1" min="1" max="{{product.stock}}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                {% set colors = product.colors.split(',') %}
+                                <label for="colors">Colors:</label>
+                                <select name="colors" id="">
+                                    {% for color in colors %}
+                                        {% set col = color.split(':') %}
+                                        <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
+                                    {% endfor %}
+                                </select><br>
+                                <input type="submit" value="Add to Cart">
+                                {# <button type="submit" class=""><a href="{{url_for('AddCart')}}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a></button> #}
+							</form>
+							{# <p><strong>Category: </strong></p> #}
+						</div>
+						<h4>Share:</h4>
+						<ul class="product-share">
+							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href=""><i class="fab fa-twitter"></i></a></li>
+							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
+							<li><a href=""><i class="fab fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+            <div class="row">
+                <div class="col-md-12 mt-3" id="s_image">
+                    <hr>
+                    <img src="{{url_for('static', filename='images/' + product.image_1)}}" alt="{{product.name}}" width="120" height="120" class="p-3">
+                    <img src="{{url_for('static', filename='images/' + product.image_2)}}" alt="{{product.name}}" width="120" height="120" class="p-3">
+                    <img src="{{url_for('static', filename='images/' + product.image_3)}}" alt="{{product.name}}" width="120" height="120" class="p-3">
+                </div>
+            </div>
+		</div>
+	</div>
+	<!-- end single product -->
+    <script>
+        var b_image = document.getElementById('b_image');
+        var s_image = document.getElementById('s_image').getElementsByTagName('img');
+        for (var i = 0; i < s_image.length; i++) {
+            s_image[i].addEventListener('click', full_image);
+        }
+    
+        function full_image(){
+            var ImageSRC = this.getAttribute('src');
+            b_image.innerHTML = "<img src="+ImageSRC+" width='400' height='400'>";
+        }
+    </script>
+{% endblock %}

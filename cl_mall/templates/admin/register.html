@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard_assets/plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard_assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard_assets/dist/css/adminlte.min.css') }}">
+</head>
+<body class="hold-transition login-page">
+    {% block content %}
+    <div class="login-box">
+        <div class="login-logo">
+          <a href="#"><b>Crownline</b>Mall</a>
+        </div>  
+        <!-- /.login-logo -->
+        <div class="card">
+          <div class="card-body login-card-body">
+            <p class="login-box-msg">Fill your details to register</p>
+            {% from "_formhelpers.html" import render_field %}
+            {% include "_messages.html" %}
+            <form action="{{ url_for('register') }}" method="post" enctype="multipart/form-data">
+                {{ form.csrf_token }}
+              <div>
+                {{ render_field(form.name, class="form-control") }}
+                {{ render_field(form.username, class="form-control") }}
+                {{ render_field(form.email, class="form-control") }}
+                {{ render_field(form.password, class="form-control") }}
+                {{ render_field(form.confirm, class="form-control") }}
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="file" name="photo" id="">
+            </div>
+              <div class="row">
+                <!-- /.col -->
+                <div class="col-4">
+                  <button type="submit" class="btn btn-info btn-inline mt-2">Sign In</button>
+                </div>
+                <!-- /.col -->
+              </div>
+            </form>
+      
+            <p class="mb-0">
+              <a href="{{url_for('login')}}" class="text-center">Already registered?</a>
+            </p>
+          </div>
+          <!-- /.login-card-body -->
+        </div>
+      </div>
+    {% endblock %}
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='dashboard_assets/plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename='dashboard_assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ url_for('static', filename='dashboard_assets/dist/js/adminlte.min.js') }}"></script>
+</body>
+</html>

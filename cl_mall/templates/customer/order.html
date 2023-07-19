@@ -1,0 +1,105 @@
+{% extends "home/layout.html" %}
+{% include "home/header.html" %}
+{% block content %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p></p>
+						<h1>My Cart</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+    <div class="col-md-12 mt-10 mb-10">
+        <div class="container mt-4">
+            Invoice: {{orders.invoice}}
+            <br>
+            Status: {{orders.status}}
+            <br>
+            Customer name: {{customer.name}}
+            <br>
+            Customer email: {{customer.email}}
+            <br>
+            Customer contact: {{customer.contact}}
+            <br>
+            <br>
+            {% include "_messages.html" %}
+            <div class="row">
+                <table class="table table-sm">
+                    <thead>
+                        <th>Sr</th>
+                        <th>Name</th>
+                        <th>Color</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Subtotal</th>
+                    </thead>
+                    <tbody>
+                        {% for key, product in orders.orders.items() %}
+                        {% set discount = "%0.2f" |format((product.discount/100) * product.price|float) %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{product.name}}</td>
+                            <form action="{{url_for('updatecart', code=key)}}" method="post">
+                                <td>{{product.color|capitalize}}</td>
+                                <td>${{product.price}}</td>
+                                <td>{{product.quantity}}</td>
+                                {% if product.discount %}
+                                <td>{{product.discount}}% &nbsp; is {{discount}}</td>
+                                {% else %}
+                                <td>{{product.discount}}% &nbsp; is {{discount}}</td>
+                                {% endif %}
+                                {% set subtotal = product.quantity|int * product.price|float %}
+                                <td>{{"%0.2f"|format((subtotal|float) - discount|float)}}</td>
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            </form>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <table class="table table-sm">
+                    <tr>
+                        <td></td>
+                        <td>
+                            {% if orders.status == 'Paid' %}
+                            {% else %}
+                            <form action="{{url_for('payment')}}" method="POST">
+                                {% set amount = grandTotal.replace('.', '') %}
+                                <input type="hidden" name="amount" value="{{amount}}">
+                                <input type="hidden" name="invoice" value="{{orders.invoice}}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <script
+                                  src="https://checkout.stripe.com/checkout.js"
+                                  class="stripe-button"
+                                  data-key="pk_test_51NPmRxCMRdELeAGDlsRu5KEpIukuyJD6m7LKv1YL1rf4gYQZcljMsS1ZCtHst1wXwBKHII0FFHLNiqey3m5wBZHU00Y3noSqOh"
+                                  data-name="CL Mall"
+                                  data-description="{{orders.invoice}}"
+                                  data-email="{{customer.email}}"
+                                  data-amount="{{amount}}"
+                                  data-currency="usd">
+                                </script>
+                              </form>
+                              {% endif %}
+                        </td>
+                        <td width="35%"></td>
+                        <td> <h5>Tax: ${{tax}}</h5> </td>
+                        <td> <h5>Grand Total: ${{grandTotal}}</h5> </td>
+                        <td>
+                            <form action="{{url_for('get_pdf', invoice=orders.invoice)}}" method="post">
+                                <button type="submit" class="btn btn-info btn-sm">Get PDF</button>
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </div>
+
+{% endblock %}

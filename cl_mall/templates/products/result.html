@@ -1,0 +1,50 @@
+{% extends "home/layout.html" %}
+{% include "home/header.html" %}
+{% block content %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>See more Details</p>
+						<h1></h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+	<!-- products -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+            <div class="row product-lists">
+                {% for product in products %}
+                <div class="col-lg-4 col-md-6 text-center {{product.name}}">
+                    <div class="single-product-item">
+                        <div class="product-image">
+                            <a href="{{ url_for('single_page', id=product.id) }}">
+                                <img src="{{url_for('static', filename='images/' + product.image_1)}}" alt="{{product.name}}" height="200">
+                            </a>
+                        </div>
+                        <h3>{{product.name}}</h3>
+                        <p class="product-price"><span>Price</span> ${{product.price}} </p>
+                        <form action="{{url_for('AddCart')}}" method="POST">
+                            <input type="hidden" name="product_id" value="{{product.id}}">
+                            <input type="hidden" name="quantity" value="1" min="1" max="{{product.stock}}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            {% set colors = product.colors.split(',') %}
+                            {% for color in colors %}
+                            {% set col = color.split(':') %}
+                            <input type="hidden" name="colors" value="{{col[0]}}">
+                            {% endfor %}
+                            <input type="submit" value="Add to Cart"> 
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+        </div> 
+
+{% endblock %}

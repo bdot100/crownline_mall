@@ -1,0 +1,51 @@
+{% extends "home/layout.html" %}
+{% include "home/header.html" %}
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Login to access our services</p>
+						<h1>Login</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+    {% include "_messages.html" %}
+    <!-- contact form -->
+	<div class="contact-from-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mb-5 mb-lg-0">
+					<div class="form-title">
+						<h2 class="text-center">Fill this form to login</h2>
+						<p></p>
+					</div>
+				 	<div id="form_status"></div>
+					<div class="contact-form">
+						<form action="" method="POST">
+                            {{ form.csrf_token }}
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8">
+                                    {{ render_field(form.email, class="form-control") }}
+                                    {{ render_field(form.password, class="form-control") }}
+                                </div>
+                                <div class="col-md-4"></div>
+                                <p><input type=submit value="Login" class="btn btn-info btn-block mt-2"></p>
+                            </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+    {% endblock %}

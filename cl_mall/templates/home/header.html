@@ -1,0 +1,86 @@
+        <!-- header -->
+        <div class="top-header-area" id="sticker">
+            <div class="container">
+                    <div class="row">
+                            <div class="col-lg-12 col-sm-12 text-center">
+                                    <div class="main-menu-wrap">
+                                            <!-- logo -->
+                                            <div class="site-logo">
+                                                    <a href="{{url_for('home')}}">
+                                                            <img src="{{url_for('static', filename='home_assets/img/cl_logo.png')}}" alt="CROWNLINE MALL LOGO" height="100" width="100">
+                                                    </a>
+                                            </div>
+                                            <!-- logo -->
+
+                                            <!-- menu start -->
+                                            <nav class="main-menu">
+                                                    <ul>
+                                                            <li><a href="{{url_for('home')}}">Home</a></li>
+                                                            <li><a href="#">About Us</a></li>
+                                                            <li class=""><a href="#">Categories</a>
+                                                                    <ul class="sub-menu">
+                                                                        {% for category in categories %}
+                                                                                <li><a href="{{ url_for('get_category', id=category.id) }}">{{category.name}}</a></li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                            </li>
+                                                            <li class=""><a href="#">Brands</a>
+                                                                    <ul class="sub-menu">
+                                                                        {% for brand in brands %}
+                                                                        <li><a href="{{ url_for('get_brand', id=brand.id) }}">{{brand.name}}</a></li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                            </li>
+                                                            {% if current_user.is_authenticated %}
+                                                            <li><a href="">{{current_user.username}}</a></li>
+                                                            <li><a href="{{url_for('customer_logout')}}">Logout</a></li>
+                                                            <li><a href="{{url_for('view_orders')}}">My Orders</a></li>
+                                                            {% else %}
+                                                            <li>
+                                                              <a href="{{url_for('customer_register')}}">Sign Up</a>
+                                                            </li>
+                                                            <li>
+                                                              <a href="{{url_for('customerLogin')}}">Sign In</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            <li><a href="">Blog</a></li>
+                                                            <li><a href="#">Contact Us</a></li>
+                                                            <li>
+                                                                    <div class="header-icons">
+                                                                            <a class="shopping-cart" href="{{url_for('getCart')}}"><i class="fas fa-shopping-cart"></i>{{session['Shoppingcart']|length}}</a>
+                                                                            <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                                                    </div>
+                                                            </li>
+                                                    </ul>
+                                            </nav>
+                                            <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                            <div class="mobile-menu"></div>
+                                            <!-- menu end -->
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+    </div>
+    <!-- end header -->
+    
+    <!-- search area -->
+    <div class="search-area">
+            <div class="container">
+                    <div class="row">
+                            <div class="col-lg-12">
+                                    <span class="close-btn"><i class="fas fa-window-close"></i></span>
+                                    <div class="search-bar">
+                                            <div class="search-bar-tablecell">
+                                                <form action="{{url_for('result')}}" class="form-inline my-2 my-lg-0">
+                                                        <h3>Search For:</h3>
+                                                        <input type="text" placeholder="Keywords" aria-label="Search" name="q">
+                                                        <button type="submit">Search <i class="fas fa-search"></i></button>
+                                                        {# <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q"> #}
+                                                </form>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+    </div>
+    <!-- end search area -->

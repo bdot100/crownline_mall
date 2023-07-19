@@ -1,0 +1,125 @@
+{% extends "home/layout.html" %}
+{% include "home/header.html" %}
+{% block content %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p></p>
+						<h1>My Cart</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- cart -->
+	<div class="cart-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="cart-table-wrap">
+						<table class="cart-table">
+							<thead class="cart-table-head">
+								<tr class="table-head-row">
+									<th class="product-remove">Remove</th>
+									<th class="product-image">Product Image</th>
+									<th class="product-name">Name</th>
+                                    <th class="product-name">Color</th>
+									<th class="product-price">Price</th>
+									<th class="product-quantity">Quantity</th>
+                                    <th class="product-quantity">Discount</th>
+									<th class="product-total">Total</th>
+                                    <th class="product-total">Update</th>
+								</tr>
+							</thead>
+							<tbody>
+                                {% for key, product in session['Shoppingcart'].items() %}
+                                {% set discount = "%0.2f" |format((product.discount/100) * product.price|float) %}
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="{{url_for('deleteitem', id=key)}}"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{product.name}}"></td>
+									<td class="product-name">{{product.name}}</td>
+                                    <form action="{{url_for('updatecart', code=key)}}" method="post">
+                                    <td class="product-name">
+                                        {% set colors = product.colors.split(',') %}
+                                        <label for="colors">Colors:</label>
+                                        <select name="color" id="">
+                                            <option value="{{product.color}}" style="display: none;">{{product.color|capitalize}}</option>
+                                            {% for color in colors %}
+                                                {% set col = color.split(':') %}
+                                                <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td class="product-name">${{product.price}}</td>
+                                    <td class="product-name"><input type="number" name="quantity" min="1" max="10" value="{{product.quantity}}"></td>
+                                    {% if product.discount %}
+                                    <td class="product-price">{{product.discount}}% &nbsp; is {{discount}}</td>
+                                    {% else %}
+                                    <td class="product-price">{{product.discount}}% &nbsp; is {{discount}}</td>
+                                    {% endif %}
+                                    {% set subtotal = product.quantity|int * product.price|float %}
+									<td class="product-total">${{"%0.2f"|format((subtotal|float) - discount|float)}}</td>
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                    <td><button type="submit" class="btn btn-sm btn-info">Update</a></td>
+                                </form>
+								</tr>
+                                {% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="total-section">
+						<table class="total-table">
+							<thead class="total-table-head">
+								<tr class="table-total-row">
+									<th>Total</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="total-data">
+									<td><strong>Sub Total: </strong></td>
+									<td>${{subtotal}}</td>
+								</tr>
+								<tr class="total-data">
+									<td><strong>Tax: </strong></td>
+									<td>${{tax}}</td>
+								</tr>
+								<tr class="total-data">
+									<td><strong>Shipping: </strong></td>
+									<td>$0</td>
+								</tr>
+								<tr class="total-data">
+									<td><strong>Total: </strong></td>
+									<td>${{grandtotal}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="cart-buttons">
+							<a href="{{url_for('clearcart')}}" class="boxed-btn">Clear Cart</a>
+							<a href="{{url_for('get_order')}}" class="boxed-btn black">Check Out</a>
+						</div>
+					</div>
+
+					<div class="coupon-section">
+						<h3>Apply Coupon</h3>
+						<div class="coupon-form-wrap">
+							<form action="index.html">
+								<p><input type="text" placeholder="Coupon"></p>
+								<p><input type="submit" value="Apply"></p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end cart -->
+{% endblock %}

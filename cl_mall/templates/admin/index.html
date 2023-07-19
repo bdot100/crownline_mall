@@ -1,0 +1,128 @@
+{% include "admin/includes/header.html" %}
+{% block content %}
+{% include "_messages.html" %}
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150</h3>
+
+                <p>Total Orders</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">View All Orders <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{products|length}}<sup style="font-size: 20px"></sup></h3>
+
+                <p>Total Products</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>44</h3>
+
+                <p>User Registrations</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="#" class="small-box-footer">View All <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Unique Visitors</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <div class="container mt-5">
+          <table class="table table-sm table-bordered table-striped table-hover">
+            <thead>
+              <th>Sr</th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Discount</th>
+              <th>Brand</th>
+              <th>Image</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </thead>
+            <tbody>
+              {% for product in products %}
+              <tr>
+                <td>{{loop.index}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.discount}}</td>
+                <td>{{product.brand.name}}</td>
+                <td><img src="{{ url_for('static', filename='images/' + product.image_1) }}" width="50" height="40" alt=""></td>
+                <td><a href="{{ url_for('updateproduct', id=product.id) }}" class="btn btn-info btn-sm">Edit</a></td>
+                <td>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal-{{product.id}}">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal-{{product.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{product.name}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="text-danger">Are you sure to delete product {{product.name}} ?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Cancel</button>
+              <form action="{{url_for('deleteproduct', id=product.id)}}" method="POST">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+
+{% endblock %}
+{% include "admin/includes/footer.html" %}

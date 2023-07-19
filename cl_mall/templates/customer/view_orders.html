@@ -1,0 +1,43 @@
+{% extends "home/layout.html" %}
+{% include "home/header.html" %}
+{% block content %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p></p>
+						<h1>My Cart</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+    <div class="container mt-5 mb-5">
+        <table class="table table-sm table-bordered table-striped table-hover">
+            <thead>
+                <th>Sr</th>
+                <th>Invoice</th>
+                <th>Status</th>
+                <th>Order Date</th>
+                <th>Order Details</th>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{order.invoice}}</td>
+                        <td>{{order.status}}</td>
+                        <td>{{order.date_created}}</td>
+                        <td>
+                            <a href="{{ url_for('orders', invoice=order.invoice) }}" class="btn btn-sm btn-outline-info">Details</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

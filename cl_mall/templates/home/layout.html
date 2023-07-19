@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="CL Mall, E-commerce, Crownline, Online Mall">
+
+        <!-- title -->
+        <title>{{title}}</title>
+
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='home_assets/img/favicon.png') }}">
+        <!-- google font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+        <!-- fontawesome -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='home_assets/css/all.min.css') }}">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='home_assets/bootstrap/css/bootstrap.min.css') }}">
+        <!-- owl carousel -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='home_assets/css/owl.carousel.css') }}">
+        <!-- magnific popup -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='home_assets/css/magnific-popup.css') }}">
+        <!-- animate css -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='home_assets/css/animate.css') }}">
+        <!-- mean menu css -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='home_assets/css/meanmenu.min.css') }}">
+        <!-- main style -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='home_assets/css/main.css') }}">
+        <!-- responsive -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='home_assets/css/responsive.css') }}">
+        {{ toastr.include_jquery() }}
+        {{ toastr.include_toastr_css() }}
+        {{ toastr.message() }}
+</head>
+<body>
+        
+        <!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+    {% block content %}
+    
+    {% endblock content %}
+    <!-- logo carousel -->
+    <div class="logo-carousel-section">
+            <div class="container">
+                    <div class="row">
+                            <div class="col-lg-12">
+                                    <div class="logo-carousel-inner">
+                                            <div class="single-logo-item">
+                                                    <img src="{{url_for('static', filename='home_assets/img/company-logos/1.png')}}" alt="">
+                                            </div>
+                                            <div class="single-logo-item">
+                                                    <img src="{{url_for('static', filename='home_assets/img/company-logos/2.png')}}" alt="">
+                                            </div>
+                                            <div class="single-logo-item">
+                                                    <img src="{{url_for('static', filename='home_assets/img/company-logos/3.png')}}" alt="">
+                                            </div>
+                                            <div class="single-logo-item">
+                                                    <img src="{{url_for('static', filename='home_assets/img/company-logos/4.png')}}" alt="">
+                                            </div>
+                                            <div class="single-logo-item">
+                                                    <img src="{{url_for('static', filename='home_assets/img/company-logos/5.png')}}" alt="">
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+    </div>
+    <!-- end logo carousel -->
+        <!-- footer -->
+        <div class="footer-area">
+                <div class="container">
+                        <div class="row">
+                                <div class="col-lg-3 col-md-6">
+                                        <div class="footer-box about-widget">
+                                                <h2 class="widget-title">About us</h2>
+                                                <p>We offer extensive collection of products designed to meet your diverse needs.
+                                                        From trendy fashion items to cutting-edge electronics, mobile devices, 
+                                                        and laptops, we have it all.</p>
+                                        </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                        <div class="footer-box get-in-touch">
+                                                <h2 class="widget-title">Get in Touch</h2>
+                                                <ul>
+                                                        <li>34/8, East Hukupara, Lagos, Nigeria.</li>
+                                                        <li>support@crownline.com</li>
+                                                        <li>+234 807 756 2619</li>
+                                                </ul>
+                                        </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                        <div class="footer-box pages">
+                                                <h2 class="widget-title">Pages</h2>
+                                                <ul>
+                                                        <li><a href="#">Home</a></li>
+                                                        <li><a href="#">About</a></li>
+                                                        <li><a href="#">Products</a></li>
+                                                        <li><a href="#">Blog</a></li>
+                                                        <li><a href="#">Contact</a></li>
+                                                </ul>
+                                        </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                        <div class="footer-box subscribe">
+                                                <h2 class="widget-title">Subscribe</h2>
+                                                <p>Subscribe to our mailing list to get the latest updates.</p>
+                                                <form action="index.html">
+                                                        <input type="email" placeholder="Email">
+                                                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                                                </form>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        <!-- end footer -->
+        
+        <!-- copyright -->
+        <div class="copyright">
+                <div class="container">
+                        <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                        <p>Copyrights &copy; 2023 - <a href="">Crownline Mall</a>,  All Rights Reserved.</p>
+                                </div>
+                                <div class="col-lg-6 text-right col-md-12">
+                                        <div class="social-icons">
+                                                <ul>
+                                                        <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                                        <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                                                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                                                        <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                                                </ul>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        <!-- end copyright -->
+        {{ toastr.include_toastr_js() }}
+        <!-- jquery -->
+        <script src="{{ url_for('static', filename='home_assets/js/jquery-1.11.3.min.js') }}"></script>
+        <!-- bootstrap -->
+        <script src="{{ url_for('static', filename='home_assets/bootstrap/js/bootstrap.min.js') }}"></script>
+        <!-- count down -->
+        <script src="{{ url_for('static', filename='home_assets/js/jquery.countdown.js') }}"></script>
+        <!-- isotope -->
+        <script src="{{ url_for('static', filename='home_assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
+        <!-- waypoints -->
+        <script src="{{ url_for('static', filename='home_assets/js/waypoints.js') }}"></script>
+        <!-- owl carousel -->
+        <script src="{{ url_for('static', filename='home_assets/js/owl.carousel.min.js') }}"></script>
+        <!-- magnific popup -->
+        <script src="{{ url_for('static', filename='home_assets/js/jquery.magnific-popup.min.js') }}"></script>
+        <!-- mean menu -->
+        <script src="{{ url_for('static', filename='home_assets/js/jquery.meanmenu.min.js') }}"></script>
+        <!-- sticker js -->
+        <script src="{{ url_for('static', filename='home_assets/js/sticker.js') }}"></script>
+        <!-- main js -->
+        <script src="{{ url_for('static', filename='home_assets/js/main.js') }}"></script>
+
+</body>
+</html>
