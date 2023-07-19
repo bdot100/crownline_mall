@@ -1,4 +1,4 @@
-[![Crownline Mall]<img src="[repo_logo_img]" alt="Project Logo" width="200">][repo_url]
+[![Crownline Mall][repo_logo_img]][repo_url]
 
 
 # Crownline Mall
