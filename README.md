@@ -1,5 +1,3 @@
-[![Crownline Mall][repo_logo_img]][repo_url]
-
 # Crownline Mall
 
 [![Project Logo][repo_logo_img]](https://bdot.pythonanywhere.com/)
