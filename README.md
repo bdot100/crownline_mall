@@ -17,7 +17,7 @@ Ensure to read the requirements.txt file to see the required modules.
 
 ```bash
 $ git clone https://github.com/bdot100/crownline_mall
-$ cd your-repository
+$ cd crownline_mall
 $ pip install -r requirements.txt
 $ python app.py
 ```
