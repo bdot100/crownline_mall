@@ -22,24 +22,7 @@ $ git clone https://github.com/bdot100/crownline_mall
 $ cd your-repository
 $ pip install -r requirements.txt
 $ python app.py
-
-
-
-
-
-
-[![Crownline Mall][repo_logo_img]][repo_url]
-
-
-# Crownline Mall
-
-
-
-
-
-
-
-
+```
 
 
 
